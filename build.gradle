@@ -28,6 +28,7 @@ apply plugin: "com.github.johnrengelman.shadow"
 mainClassName = 'com.github.piasy.sqldelight.bin.SqlDelightRunner'
 
 shadowJar {
+  classifier = null
   configurations = [project.configurations.compile]
 }
 
