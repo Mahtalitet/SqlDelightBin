@@ -26,6 +26,8 @@ public class SqlDelightRunner {
     String input = argv[0];
     String output = argv[1];
     File inputDir = new File(input);
+    SymbolTable symbolTable = new SymbolTable();
+
     for (File sq : listAllFiles(inputDir)) {
       System.out.println("compiling " + sq.getAbsolutePath() + " ...");
       try {
@@ -33,7 +35,6 @@ public class SqlDelightRunner {
         SqliteParser parser = new SqliteParser(new CommonTokenStream(lexer));
         SqliteParser.ParseContext parseContext = parser.parse();
 
-        SymbolTable symbolTable = new SymbolTable();
         String relativePath =
             joinToString(FileKt.relativePath(sq.getAbsolutePath(), File.separatorChar),
                 File.separator);
