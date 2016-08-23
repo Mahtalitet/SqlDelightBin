@@ -3,7 +3,8 @@ import java.text.SimpleDateFormat
 def siteUrl = 'https://github.com/OkBuilds/SqlDelightBin'
 def gitUrl = 'https://github.com/OkBuilds/SqlDelightBin.git'
 def publishGroup = 'com.github.okbuilds'
-def publishVersion = '0.4.3'
+def publishVersion = '0.4.4'
+def javapoetVersion = '1.7.0'
 
 buildscript {
   repositories {
@@ -27,7 +28,7 @@ apply plugin: "com.github.johnrengelman.shadow"
 mainClassName = 'com.github.piasy.sqldelight.bin.SqlDelightRunner'
 
 shadowJar {
-  classifier = null
+  configurations = [project.configurations.compile]
 }
 
 sourceCompatibility = 1.8
@@ -37,7 +38,11 @@ repositories {
 }
 
 dependencies {
-  compile group: 'com.squareup.sqldelight', name: 'compiler', version: "${publishVersion}"
+  compile (group: 'com.squareup.sqldelight', name: 'compiler', version: "${publishVersion}") {
+    exclude module: 'javapoet'
+  }
+  compile group: 'com.squareup', name: 'javapoet', version: "${javapoetVersion}"
+
 }
 
 tasks.withType(JavaCompile) {
